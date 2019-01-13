@@ -18,19 +18,20 @@ $(document).ready(function () {
 
     $(document.body).on('click', 'button.updatePost', function () {
         var html = $(this).html(); // check if the button text is EDIT or SAVE
-        var postEl = $(this).prev(); // get the input box that you want to edit
+        var body = $(this).prev(); // get the input box that you want to edit
+        var title = body.prev().html();
         var updateKey = $(this).attr('title'); // the button title is used to store the post ID
         if (html === 'EDIT') {
             $(this).html('SAVE');
-            postEl.attr('contenteditable', 'true');
-            postEl.css({
+            body.attr('contenteditable', 'true');
+            body.css({
                 background: "#fdffab"
             });
         } else if (html === 'SAVE') {
-            var el = postEl.html();
+            var newBody = body.html();
             var update = {
-                title: el,
-                body: el
+                title: title,
+                body: newBody
             }
             $('.posts').html("");
             updateItem(updateKey, update, 0);
